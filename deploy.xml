@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<project name="copieToApache" default="all" basedir="./">
+<project name="DeployGW2CL" default="all" basedir="./">
 
 	<!-- Définition de l'emplacement du répertoire deploy  -->
-	<property name="dir.serveur" value="D:\PRONO\EasyPHP-5.3.8.1\www\GW2CL" />
+	<property name="dir.serveur" value="C:\Users\Thorkh\Applications\EasyPHP-5.3.5.0\www\" />
 	
 	<!-- Définition des variables des chemins projets -->
 	<property name="dir.projet" value=".\" />

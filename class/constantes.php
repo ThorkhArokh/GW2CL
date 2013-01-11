@@ -2,6 +2,9 @@
 //Constantes
 
 //Version du site
-$GLOBALS['VERSION'] = "1.0";
+$GLOBALS['VERSION'] = "1.5";
+
+//Mode dev
+$GLOBALS['MODE_DEV'] = true;
 
 ?>
