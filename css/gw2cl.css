@@ -1,0 +1,93 @@
+body {
+	
+}
+
+ul {
+	margin:0;
+	padding:0;
+	padding-left:30px;
+}
+
+li {
+	padding-left:5px;
+	display : list-item;
+ 	list-style-image : url(../images/pointille_simple.gif);
+}
+
+.erreur
+{
+	background: #fbe3e4 url(../images/failed.png) no-repeat 4px 4px;
+	padding-left: 44px;
+	display: block;
+	clear: left;
+	line-height: 40px;
+	color: #8a1f11;
+	cursor: pointer;
+	border-bottom: 1px solid #fbc2c4;
+}
+
+#container {
+	/*width:647px;
+	background: url("../images/fondGene.png");*/
+	padding-top:5px;
+	padding-right:5px;
+	background-color : #353D3F;
+	width:667px;
+	margin: 0 auto;
+}
+
+.plusBtn
+{
+	width: 13px; 
+	height: 13px; 
+	border: none; 
+	cursor: pointer; 
+	background: url("../images/boutons/icon_plus.png") no-repeat;
+	outline:none;
+}
+
+.moinsBtn
+{
+	width: 13px; 
+	height: 13px; 
+	border: none; 
+	cursor: pointer; 
+	background: url("../images/boutons/icon_moins.png") no-repeat;
+	outline:none;
+}
+
+.recette {
+	background-color:gray;
+}
+
+.recette table, .recette2 table {
+	/*color : #F3E2A9;
+	font-weight:bold;
+	width:100%;*/
+}
+
+.recette2 {
+	background-color:lightgray;
+}
+
+.meter-wrap{
+    position: relative;
+    border: 1px solid black;
+}
+
+.meter-wrap, .meter-value, .meter-value2 {
+    /* The width and height of your image */
+    width: 100px; height: 12px;  
+}
+
+.meter-wrap, .meter-value, .meter-value2 {
+    background-color : #2E2E2E;
+}
+
+.meter-value {
+	border-right: 2px solid white;
+}
+
+.meter-value2 {
+	border-right: none;
+}

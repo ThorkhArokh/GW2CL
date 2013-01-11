@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="copieToApache" default="all" basedir="./">
+
+	<!-- Définition de l'emplacement du répertoire deploy  -->
+	<property name="dir.serveur" value="D:\PRONO\EasyPHP-5.3.8.1\www\GW2CL" />
+	
+	<!-- Définition des variables des chemins projets -->
+	<property name="dir.projet" value=".\" />
+	
+	<!-- Tâche par défaut -->
+	<target name="all" depends="copieLivrables">
+	</target>
+
+	<!-- Copie des livrables générés par maven -->
+	<target name="copieLivrables">
+		<copy todir="${dir.serveur}" overwrite="true" verbose="true">
+			<fileset dir="${dir.projet}">
+				<include name="**" />
+				<exclude name="deploy.xml"/>
+				<exclude name="ToDoList.txt"/>
+				<exclude name=".project"/>
+				<exclude name="**/.settings/**"/>
+				<exclude name=".buildpath"/>
+			</fileset>
+		</copy>
+		<echo>Copie de ${dir.projet} vers ${dir.serveur} ...OK</echo>
+	</target>
+</project>
