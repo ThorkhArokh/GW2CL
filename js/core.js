@@ -56,18 +56,30 @@ function afficheDetail(btn, div, idRecettePere) {
 }
 
 function afficheInfo() {
-	display = document.getElementById('divDroite').style.display
+	display = document.getElementById('divDroite').className;
 	
-	if(display == '') {
-		document.getElementById('divDroite').style.display = 'none';
-		document.getElementById('divDroite').style.width='0';
-		document.getElementById('divCentre').style.marginRight='0';
-		
+	isAffiche = true;
+	if(display == 'divDroiteShow') {
+		document.getElementById('divDroite').className = "divDroiteHide";
+		document.getElementById('divCentre').className = "divCentreMax";
+		isAffiche = false;
 	} else {
-		document.getElementById('divDroite').style.display = '';
-		document.getElementById('divDroite').style.width='350px';
-		document.getElementById('divCentre').style.marginRight='370px';
+		document.getElementById('divDroite').className = "divDroiteShow";
+		document.getElementById('divCentre').className = "divCentreMin";
+		isAffiche = true;
 	}
+	
+	if (window.XMLHttpRequest)
+	{xmlhttp=new XMLHttpRequest(); /* code for IE7+, Firefox, Chrome, Opera, Safari */}
+	else
+	{xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); /* code for IE6, IE5 */}
+	
+	xmlhttp.onreadystatechange=function() {
+		if (xmlhttp.readyState==4 && xmlhttp.status==200){} 
+	}
+	
+	xmlhttp.open("GET","./ajax/setAfficheInfos.php?isAffiche="+isAffiche,true);
+	xmlhttp.send();
 }
 
 function selectArmePrincipale(cbx, idUser) {

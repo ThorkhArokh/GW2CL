@@ -11,9 +11,6 @@
 	//On démarre la session
 	session_start();
 	
-	//On récupère l'identifiant de l'utilisateur
-	getSession();
-	
 	//On initialise l'objet pour la détection du support (mobile ou PC)
 	$detect = new Mobile_Detect();
 ?>
@@ -38,10 +35,18 @@
     	<div id="wrapper">	
             <div id="loading" class="loadingAjax" ><div><img src='./images/ajax-loader.gif' /></div></div>
             <?php 
+            //On récupère l'identifiant de l'utilisateur
+            getSession();
+            $classDivDroite = "divDroiteShow";
+            $classDivCentre = "divCentreMin";
+            if(isset($_SESSION['isAffiche']) && $_SESSION['isAffiche'] == "false") {
+            	$classDivDroite = "divDroiteHide";
+            	$classDivCentre = "divCentreMax";
+            }
             if (!$detect->isMobile()) {
             	echo "<div id=\"divGauche\">";
 	            echo "</div> <!-- Div Gauche -->";
-	            echo "<div id=\"divDroite\">";
+	            echo "<div id=\"divDroite\" class='".$classDivDroite."'>";
 	            echo "<div class='box'>";
 		            echo "<div class=\"titre\">Avanc&eacute;es des membres</div>";
 		            getUsersAvancement();
@@ -52,20 +57,18 @@
 	            echo "</div>";
 	            echo "</div>";
             }
+            
+            echo "<div id=\"divCentre\" class='".$classDivCentre."'>";
             ?>
-            <div id="divCentre">
             	<div class='box'>
                 <form id="formSelectArme" method="post" action="index.php">
                 <?php 
                     if(isset($_SESSION['userLog'])) {
-                    	//On récupère l'utilisateur
-                    	$userConnect = getUser($_SESSION['userLog']->id);
-                    	
                         $armeSelect = "-1";
                         $isChecked = false;
                         if (isset($_POST['selectRecette']) && isset($_POST['selectRecettePere'])) {
                         	$armeSelect = $_POST['selectRecettePere'];
-                        	if($armeSelect == $userConnect->armeChoisie) {
+                        	if($armeSelect == $_SESSION['userLog']->armeChoisie) {
                         		$isChecked=true;
                         	}
                         } 
@@ -78,12 +81,12 @@
                         } else {
                         	echo "<input type=\"checkbox\" name=\"choixArme\" value=\"choixArme\" onclick='selectArmePrincipale(this, ".$_SESSION['userLog']->id.");' /><span class='text'>Arme principale<span>";
                         }
+                        if (!$detect->isMobile()) {
+                        	echo "<div class='boutonsAvanceeDiv'>";
+                        	echo "<input id='hideInfoBtn' value='?' title=\"Afficher/masquer la zone d'informations\" type='button' onclick='afficheInfo();' />";
+                        	echo "</div>";
+                        }
                     }
-                if (!$detect->isMobile()) {
-	                echo "<div class='boutonsAvanceeDiv'>";
-	                echo "<input id='hideInfoBtn' value='?' title=\"Afficher/masquer la zone d'informations\" type='button' onclick='afficheInfo();' />";
-	                echo "</div>";
-                }
                 ?>
                 </form>
                 </div>

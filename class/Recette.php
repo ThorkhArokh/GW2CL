@@ -225,7 +225,7 @@ class Recette
 			$this->avancee = $avanceeTmp;
 			$this->enregistrer($idUser);
 		}
-		
+
 		if(!$this->isComplet()){
 			echo "<div class=\"meter-value\" style=\"background-color: #E38E00; width: ".$avanceeTmp."%;\">";
 		} else {
@@ -301,10 +301,14 @@ function getRecette($idRecette, $idUser) {
 		$nouvelObjet = new Objet($row['idObjet'], $row['nomObjet'], $row['imageObjet'], $row['typeObjet']);
 		$listeIngredients = getIngredients($idRecette, $idUser);
 		$quantiteRecetteTmp = $row['quantiteRecette'];
+		$avanceeTmp = $row['avanceeRecette'];
 		if(empty($row['quantiteRecette'])) {
 			$quantiteRecetteTmp=0;
 		}
-		$nouvelleRecette = new Recette($row['idRecette'], $nouvelObjet, $listeIngredients, $row['quantiteNecessaire'], $quantiteRecetteTmp, $row['avanceeRecette']);
+		if(empty($row['avanceeRecette'])) {
+			$avanceeTmp = 0;
+		}
+		$nouvelleRecette = new Recette($row['idRecette'], $nouvelObjet, $listeIngredients, $row['quantiteNecessaire'], $quantiteRecetteTmp, $avanceeTmp);
 		break;
 	}
 	return $nouvelleRecette;
