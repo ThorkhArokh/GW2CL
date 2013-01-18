@@ -27,7 +27,6 @@ class Recette
 		$reqSaveRecettes ="INSERT INTO avanceeuser (idUser, idRecette, quantite, avancee) VALUES (".$idUser.", ".$this->id.", ".$this->quantite.", ".$this->avancee.") 
 				ON DUPLICATE KEY UPDATE quantite=".$this->quantite.", avancee=".$this->avancee ;
 		
-		//$reqSaveRecettes = "update avanceeuser a set quantite = ".$this->quantite." where a.idRecette = ".$this->id." and a.idUser = ".$idUser;
 		mysql_query($reqSaveRecettes) or die("<div class='erreur'>[MySql] Erreur : ".htmlentities(mysql_error())."<br/><i>".$req."</i></div>");
 		
 		closeConnectMySql($connection);
@@ -177,15 +176,21 @@ class Recette
 		}
 	}
 	
-	function afficheRecette($paddingLeft, $i, $idUser, $idRecettePere, $isRecettePere) {
+	function afficheRecette($paddingLeft, $i, $idUser, $idRecettePere, $isRecettePere, $isPereComplet) {
 		$idRecettePereDiv = $idRecettePere."_".$this->id;
 		$nbrIngredient = count($this->ingredientsLst);
-		$style = "style=\"padding-left:".$paddingLeft."px;\"";
+		$style = "style=\"padding-left:".$paddingLeft."px;";
 		//On initialise l'objet pour la détection du support (mobile ou PC)
 		$detect = new Mobile_Detect();
 		if ($detect->isMobile()) {
 			$style = "";
 		}
+		
+		$afficheElement = "\"";
+		if($isPereComplet) {
+			$afficheElement = "display:none\"";
+		}
+		$style = $style.$afficheElement;
 		
 		if($i%2==0){
 			echo "<div id='".$idRecettePereDiv."' name='divRecette' ".$style." class=\"recette\">";
@@ -205,7 +210,11 @@ class Recette
 		echo "<table><tr>";
 		echo "<td>";
 		if($nbrIngredient>0) {
-			echo "<input id='btn".$idRecettePereDiv."' type='button' onclick=\"afficheDetail('btn".$idRecettePereDiv."', 'divRecette', '".$idRecettePereDiv."');\" value=' ' class='moinsBtn'/>";
+			if($this->isComplet()) {
+				echo "<input id='btn".$idRecettePereDiv."' type='button' onclick=\"afficheDetail('btn".$idRecettePereDiv."', 'divRecette', '".$idRecettePereDiv."');\" value=' ' class='plusBtn'/>";
+			} else {
+				echo "<input id='btn".$idRecettePereDiv."' type='button' onclick=\"afficheDetail('btn".$idRecettePereDiv."', 'divRecette', '".$idRecettePereDiv."');\" value=' ' class='moinsBtn'/>";
+			}
 		} else {
 			echo "<div class='aucunBtn'/>";
 		}
@@ -254,7 +263,7 @@ class Recette
 		echo "</div>";
 		$i++;
 		foreach($this->ingredientsLst as $ingredientTmp) {			
-			$ingredientTmp->afficheRecette($paddingLeft+30, $i, $idUser, $idRecettePereDiv, false);
+			$ingredientTmp->afficheRecette($paddingLeft+30, $i, $idUser, $idRecettePereDiv, false, $this->isComplet());
 			$i = $i + 1 + $ingredientTmp->getNbrTotalIngredients(0);
 		}
 	}
@@ -287,7 +296,7 @@ function afficheRecettePere($idUser, $idRecettePere) {
 	$nouvelleRecette = getRecette($idRecettePere, $idUser);
 	closeConnectMySql($connection);
 	if(!empty($nouvelleRecette)) {
-		$nouvelleRecette->afficheRecette(0, 0, $idUser, $idRecettePere, true);
+		$nouvelleRecette->afficheRecette(0, 0, $idUser, $idRecettePere, true, false);
 	}
 	
 }

@@ -33,8 +33,12 @@
 	</head>
 	<body>
     	<div id="wrapper">	
-            <div id="loading" class="loadingAjax" ><div><img src='./images/ajax-loader.gif' /></div></div>
+            <div id="loading" class="loadingAjax" ><div class='zoneImage'><img src='./images/ajax-loader.gif' /></div></div>
             <?php 
+            echo "<div id='param' class='loadingAjax' >";
+            include($_SERVER["DOCUMENT_ROOT"]."/pages/parametres.php");
+            echo "</div>";
+            
             //On récupère l'identifiant de l'utilisateur
             getSession();
             $classDivDroite = "divDroiteShow";
@@ -48,12 +52,12 @@
 	            echo "</div> <!-- Div Gauche -->";
 	            echo "<div id=\"divDroite\" class='".$classDivDroite."'>";
 	            echo "<div class='box'>";
-		            echo "<div class=\"titre\">Avanc&eacute;es des membres</div>";
-		            getUsersAvancement();
+	            	echo "<div class=\"titre\">Avanc&eacute;es des membres</div>";
+	            	include($_SERVER["DOCUMENT_ROOT"]."/pages/avanceeMembre.php");
 	            echo "</div>";
 	            echo "<div class='box'>";
 		            echo "<div class=\"titre\">Infos utiles</div>";
-		            include("pages/infos.php");
+		            include($_SERVER["DOCUMENT_ROOT"]."/pages/infos.php");
 	            echo "</div>";
 	            echo "</div>";
             }
@@ -71,7 +75,11 @@
                         	if($armeSelect == $_SESSION['userLog']->armeChoisie) {
                         		$isChecked=true;
                         	}
-                        } 
+                        } else {
+                        	if(isset($_SESSION['recettePereSelect'])) {
+                        		$armeSelect = $_SESSION['recettePereSelect'];
+                        	}
+                        }
                         //On affiche le select pour les objets pères
                         getRecettePere($_SESSION['userLog']->id, $armeSelect);
                         
@@ -92,13 +100,20 @@
                 </div>
                 <div id="container">
                 <?php 
-                $_SESSION['recettePereSelect'] = -1;
                 if(isset($_SESSION['userLog'])) {
+                	$recetteSelectionne = "";
                     if (isset($_POST['selectRecette']) && isset($_POST['selectRecettePere'])) {
                         $_SESSION['recettePereSelect'] = $_POST['selectRecettePere'];
+                        $recetteSelectionne = $_POST['selectRecettePere'];
+                    } else {
+                    	if(isset($_SESSION['recettePereSelect'])) {
+                    		$recetteSelectionne = $_SESSION['recettePereSelect'];
+                    	}	
+                    }
+                    if($recetteSelectionne != "") {
                         echo "<div class=\"titre\">Avanc&eacute;e Recette</div>";
                         echo "<div id='resultatAjax' >";
-                        afficheRecettePere($_SESSION['userLog']->id, $_POST['selectRecettePere']);
+                        afficheRecettePere($_SESSION['userLog']->id, $recetteSelectionne);
                         echo "</div>";
                     } else {
                         echo "<div class='titre'>Veuillez choisir un objet dans la liste.</div>";
@@ -129,5 +144,6 @@
         <script type="text/javascript" src="js/core.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 		<script type="text/javascript" src="http://static-ascalon.cursecdn.com/current/js/syndication/tt.js"></script>
+		<script type="text/javascript">afficheColorTab();</script>
 	</body>
 </html>

@@ -1,15 +1,12 @@
 body {
-	background: #fbe3e4 url(../images/fond.jpg) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
 	background-color:white;
+	padding:5px;
 	margin:0;
+	font-size:1.5em;
 }
 
 h1 {
-	font-size:1.5em;
+	font-size:2em;
 	margin: 5px;
 	text-align:center;
 }
@@ -26,21 +23,8 @@ a:hover
 	height:100%;
 }
 
-#divGauche {
-    float:left;
-    width: 10px;
-}
-
 #divCentre {
-	padding:5px;
-}
-
-.divCentreMin {
-	margin-right: 360px;
-}
-
-.divCentreMax {
-	margin-right: 0;
+	
 }
 
 #container {
@@ -49,41 +33,6 @@ a:hover
 	-moz-box-shadow: 1px 1px 40px #555; 
 	-webkit-box-shadow: 1px 1px 40px #555;
 	box-shadow: 1px 1px 40px #555;
-	filter:alpha(opacity=900);
-    -moz-opacity: 0.9;
-    opacity:0.9;
-}
-
-#divDroite {
-	padding:5px;
-	float: right;
-}
-
-.divDroiteHide {
-	display : none;
-	width: 0;
-}
-
-.divDroiteShow {
-    width: 350px;
-    display: inline;
-}
-
-#paramDiv {
-	width:50%;
-	color: white;
-	opacity:1;
-	margin: 0 auto;
-	margin-top:200px;
-}
-
-.bandeauProfil {
-	text-align: right;
-	font-weight: bold;
-	padding: 2px;
-	margin-left:0;
-	margin-right:0;
-	background-color : lightgray;
 	filter:alpha(opacity=900);
     -moz-opacity: 0.9;
     opacity:0.9;
@@ -101,50 +50,29 @@ a:hover
     margin-bottom:5px;
 }
 
-.infoBox {
-	background-color:#1B1F1E;
-	padding:2px;
-	color : white;
-	margin-top:5px;
-}
-
-.infoBox p {
-	padding-left:5px;
-	padding-right:5px;
-}
-.infoBox ul {
-	padding-right:5px;
-}
-
-.bar {
-	width: 100%;
-	background-color:none;
-}
-
 .info {
 	padding:5px;
 	margin:0px;
 	boder: 1px solid black;
-    background-color : #0B0B0B;
+	-moz-box-shadow: 1px 1px 40px #555; 
+	-webkit-box-shadow: 1px 1px 40px #555;
+	box-shadow: 1px 1px 40px #555;
+	filter:alpha(opacity=900);
+    -moz-opacity: 0.9;
+    opacity:0.9;
+    background-color : #353D3F;
 }
 
-.info div, .titreInfo {
-	background-color:#353D3F;
+.info div, .titre {
+	background-color:#1B1F1E;
 	padding:5px;
 	margin-bottom:5px;
 	color: white;
-}
-
-.titre, .titreInfo {
-	text-align:center;
-	font-weight:bold;
-	padding:5px;
-	margin-bottom:5px;
 }
 
 .titre {
-	background-color:#1B1F1E;
-	color: white;
+	text-align:center;
+	font-weight:bold;
 }
 
 #bottom {
@@ -177,7 +105,7 @@ input:hover {
 input:focus {
 	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-	border-color : #E38E00;
+	border-color : #336633;
 }
 
 .text {
@@ -185,8 +113,8 @@ input:focus {
 }
 
 .iconObjet {
-	width: 20px;
-    height: 20px;
+	width: 50px;
+    height: 50px;
     border:1px solid gray;
     -moz-border-radius: 1px;
 	-webkit-border-radius: 1px;
@@ -210,21 +138,11 @@ input:focus {
   	text-align: center;
 }
 
-.loadingAjax .zoneImage {
+.loadingAjax div {
 	margin-top:200px;
 	line-height: 50%;
 	color: white;
 	opacity:1;
-}
-
-.infoDiv
-{
-	position: fixed;
-	display: block;
-    z-index:100;
-    visibility:hidden;
-    top: 5px;
-  	left: 13px;
 }
 
 .erreur
@@ -239,35 +157,20 @@ input:focus {
 	border-bottom: 1px solid #fbc2c4;
 }
 
-.inputErreur
-{
-	border-color:#8a1f11;
-}
-
 .boutonsAvanceeDiv {
 	float:right;
 	text-align : right;
-	height:25px;
+	height:50px;
 }
 
-.paramBtn {
-	margin-left:5px;
+.boutonsAvanceeDiv input {
+	height:45px;
+	width:100px;
 	margin-right:5px;
-	height:20px;
-	width:20px;
-	background: url("../images/boutons/icon-engrenage.png") no-repeat top left;
-	border:none;
-	cursor: pointer; 
-}
-
-.paramBtn:hover {
-	background: url("../images/boutons/icon-engrenageOn.png") no-repeat top left;
 }
 
 .boutonsAvanceeDiv input[type=button] {
-	height:20px;
-	width:20px;
-	margin-right:5px;
+	width:40px;
 }
 
 .plusBtn
@@ -300,32 +203,6 @@ input:focus {
 	background: transparent;
 }
 
-.infoBtn {
-	border: none; 
-	cursor: pointer; 
-	outline:none;
-	width: 18px; 
-	height: 18px;
-	background: url("../images/boutons/info-icone.png") no-repeat; 
-}
-
-.infoBtn:hover {
-	background: url("../images/boutons/info-icone2.png") no-repeat; 
-}
-
-.closeBtn {
-	border: none; 
-	cursor: pointer; 
-	outline:none;
-	width: 18px; 
-	height: 18px;
-	background: url("../images/boutons/close.png") no-repeat; 
-}
-
-.closeBtn:hover {
-	background: url("../images/boutons/close2.png") no-repeat; 
-}
-
 .recette, .recette2 {
 	padding:2px;
 	padding-left:10px;
@@ -334,6 +211,7 @@ input:focus {
 	filter:alpha(opacity=900);
     -moz-opacity: 0.9;
     opacity:0.9;
+    height:50px;
 }
 
 .recette2 {
@@ -366,7 +244,7 @@ input:focus {
 
 .barreAvancee {
 	float:left;
-	heigth:20px;
+	heigth:50px;
 }
 
 .imgBarreAvancee {
@@ -380,7 +258,7 @@ input:focus {
 .meter-wrap, .meter-value, .meter-value2 {
     /* The width and height of your image */
     width: 100px; 
-    height: 19px;
+    height: 49px;
 }
 
 .meter-wrap, .meter-value, .meter-value2 {
@@ -394,3 +272,4 @@ input:focus {
 .meter-value2 {
 	border-right: none;
 }
+

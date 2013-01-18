@@ -55,6 +55,21 @@ function afficheDetail(btn, div, idRecettePere) {
 	}	
 }
 
+function afficheColorTab() {
+	var divs = document.getElementsByName("divRecette");
+	j=0;
+	for (var i=0; i<divs.length; i++) {
+		if(divs[i].style.display == "") {
+			if(j%2==0){
+				divs[i].className = "recette";
+			} else {
+				divs[i].className = "recette2";
+			}
+			j++;
+		}
+	}
+}
+
 function afficheInfo() {
 	display = document.getElementById('divDroite').className;
 	
@@ -104,4 +119,14 @@ function selectArmePrincipale(cbx, idUser) {
 	console.log("arme : "+armeSelect);
 	xmlhttp.open("GET","./ajax/setArmePrincipale.php?armeId="+armeSelect+"&idUser="+idUser,true);
 	xmlhttp.send();
+}
+
+function afficheParam() {
+	document.getElementById("param").style.visibility='visible';
+}
+
+function masqueParam() {
+	document.getElementById("param").style.visibility='hidden';
+	document.getElementById('erreurs').innerHTML = "";
+	document.forms['modifierParamForm'].elements['zoneSaisieLoginParam'].className="";
 }
