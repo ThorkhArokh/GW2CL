@@ -1,4 +1,7 @@
 <?php
+include_once($_SERVER["DOCUMENT_ROOT"]."/class/User.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/class/Recette.php");
+
 /* Genere l'image signature
  * $joueur : Nom du joueur (ex: Liath)
  * $arme : Le nom de l'arme en cours (ex: Aurore)
@@ -8,10 +11,11 @@
 header('Content-type: image/png');
 
 if(isset($_GET["joueur"]) 
-&& isset($_GET["arme"]) 
-&& isset($_GET["avancement"])
 && isset($_GET["fond"]))
 { 
+	$userConnect = getUser($_GET["joueur"]);
+	$recettePere = getRecetteSansIngredient($userConnect->armeChoisie, $userConnect->id);
+	
   // Ouverture de l'image fond
   $fichierfond = 'images/fonds/'.$_GET["fond"].'.png';
   $fond = imagecreatefrompng($fichierfond);
@@ -27,7 +31,7 @@ if(isset($_GET["joueur"])
   $taillebarremax = 300;
   
   // Ouverture de l'icone
-  $fichiericone = 'images/icons/'.$_GET["arme"].'.png';
+  $fichiericone = 'images/icons/'.$recettePere->objetACraft->img;
   $icone = imagecreatefrompng($fichiericone); 
   
   // On fusionne les deux
@@ -39,23 +43,23 @@ if(isset($_GET["joueur"])
   //imagestring($fond, 5, 76, 10, $_GET["joueur"], $blanc);
   putenv('GDFONTPATH=' . realpath('.')); //ligne obligatoire !
   // Nom du joueur
-  imagettftext($fond, 20, 0, $aligntext+1, 31, $gris, 'Qlassik_TB.ttf', ucfirst($_GET["joueur"]));  // Ombre
-  imagettftext($fond, 20, 0, $aligntext, 30, $blanc, 'Qlassik_TB.ttf', ucfirst($_GET["joueur"]));
+  imagettftext($fond, 20, 0, $aligntext+1, 31, $gris, 'Qlassik_TB.ttf', ucfirst($userConnect->login));  // Ombre
+  imagettftext($fond, 20, 0, $aligntext, 30, $blanc, 'Qlassik_TB.ttf', ucfirst($userConnect->login));
   // Nom de l'arme
-  imagettftext($fond, 11, 0, $aligntext+1, 45, $gris, 'Qlassik_TB.ttf', ucfirst($_GET["arme"]));  // Ombre
-  imagettftext($fond, 11, 0, $aligntext, 44, $blanc, 'Qlassik_TB.ttf', ucfirst($_GET["arme"]));
+  imagettftext($fond, 11, 0, $aligntext+1, 45, $gris, 'Qlassik_TB.ttf', ucfirst($recettePere->objetACraft->nom));  // Ombre
+  imagettftext($fond, 11, 0, $aligntext, 44, $blanc, 'Qlassik_TB.ttf', ucfirst($recettePere->objetACraft->nom));
   // Avancement...
   // Fond de barre
   imagefilledrectangle($fond, $aligntext, 50, $taillebarremax, 64, $gris);
   // Barre d'avancement orange
-  imagefilledrectangle($fond, $aligntext, 50, $aligntext+(($taillebarremax-$aligntext)*($_GET["avancement"]/100)), 64, $orange);
+  imagefilledrectangle($fond, $aligntext, 50, $aligntext+(($taillebarremax-$aligntext)*($recettePere->avancee/100)), 64, $orange);
   // Petit contour qui va bien :)
   imagerectangle($fond, $aligntext, 50, $taillebarremax, 64, $noir);
   // On affiche l'avancement
-  imagettftext($fond, 11, 0, $aligntext+4, 63, $gris, 'Qlassik_TB.ttf', "Avancement : ".$_GET["avancement"]."%");
-  imagettftext($fond, 11, 0, $aligntext+3, 62, $blanc, 'Qlassik_TB.ttf', "Avancement : ".$_GET["avancement"]."%");
+  imagettftext($fond, 11, 0, $aligntext+4, 63, $gris, 'Qlassik_TB.ttf', "Avancement : ".round($recettePere->avancee,1)."%");
+  imagettftext($fond, 11, 0, $aligntext+3, 62, $blanc, 'Qlassik_TB.ttf', "Avancement : ".round($recettePere->avancee,1)."%");
   // Icone de fin de barre, éteint si arme pas finie, allumé sinon
-  $fichierfinbarre=($_GET["avancement"]==100)?'images/finBarreOn.png':'images/finBarreOff.png';	
+  $fichierfinbarre=($recettePere->avancee==100)?'images/finBarreOn.png':'images/finBarreOff.png';	
   $finbarre = imagecreatefrompng($fichierfinbarre);
   imagecopyresampled($finbarre, $finbarre, 0, 0, 0, 0, 17, 17, 21, 21);
   imagecopymerge($fond, $finbarre, $taillebarremax, 49, 0, 0, 17, 17, 100);

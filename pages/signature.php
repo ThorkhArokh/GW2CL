@@ -25,7 +25,7 @@ if(isset($_SESSION['userLog'])) {
 	if($userConnect->armeChoisie != 0) {
 		$recettePere = getRecetteSansIngredient($userConnect->armeChoisie, $userConnect->id);
 		$image = explode(".", htmlentities($recettePere->objetACraft->img));
-		$urlImg = curPageURL(false)."/addons/gw2clsign/gw2clsign.php?joueur=".htmlentities($userConnect->login)."&arme=".$image[0]."&avancement=".round($recettePere->avancee,1);
+		$urlImg = curPageURL(false)."/addons/gw2clsign/gw2clsign.php?joueur=".$userConnect->id;
 		
 		echo "<select id='signfond' onChange='changeFond(\"".$urlImg."\");'>";
 		echo "<option value='0'>Pas de fond</option>";
