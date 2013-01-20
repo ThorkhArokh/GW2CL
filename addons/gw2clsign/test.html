@@ -1,0 +1,61 @@
+<html>
+<head>
+  <style type="text/css">
+    body{
+	  background-color: #657f88;
+	  color: #ffffff;
+	}
+  </style>
+</head>
+<script type="text/javascript">
+<!--
+  function changeFond(){
+    var url="gw2clsign.php?joueur=liath&arme=Aurore&avancement=55.1";
+	var fond;
+	fond=document.getElementById("signfond").value;
+	document.getElementById("imgsign").src=url+"&fond="+fond;
+	document.getElementById("acopier").innerHTML='[img]'+url+"&fond="+fond+'[/img]';
+  }
+-->
+</script>
+<body>
+
+<h1>GW2CL Sign</h1>
+<br />
+Quatre paramètres requis pour générer une signature:<br />
+<ul>
+  <li><b>joueur</b> : Le nom du joueur connecté. (ex: Liath)</li>
+  <li><b>arme</b> : Le nom de l'arme crée. (ex: Aurore)</li>
+  <li><b>avancement</b> : L'avancement en cours, sans le signe pourcentage %. (ex: 55.1)
+  <li><b>fond</b> : Indique quel fond sera utilisé. (ex: 2)
+</ul>
+<br />
+L'image est appelée comme n'importe quelle autre image, mais son url sera un script php avec les paramètres derrière, de la forme:<br />
+<textarea rows="1" cols="80" ><img src="gw2clsign.php?joueur=liath&arme=Aurore&avancement=55.1&fond=2" /></textarea>
+
+<br /><br />Résultat, avec les valeurs de l'exemple ci-dessus:<br />
+
+<img src="gw2clsign.php?joueur=liath&arme=Aurore&avancement=55.1&fond=2" />
+
+
+
+<hr />
+
+<select id="signfond" onChange="changeFond();">
+  <option value="1">Fond 1 - Defaut</option>
+  <option value="2">Fond 2</option>
+  <option value="3">Fond 3</option>
+  <option value="4">Fond 4</option>
+  <option value="5">Fond 5</option>
+  <option value="6">Fond 6</option>
+  <option value="7">Fond 7</option>
+  <option value="8">Fond 8</option>
+</select>
+
+<br /><br />
+<img src="gw2clsign.php?joueur=liath&arme=Aurore&avancement=55.1&fond=1" id="imgsign" />
+<br /><br />
+BBCode pour insérer votre signature sur le forum:<br />
+<textarea rows="1" cols="80" id="acopier" ></textarea>
+</body>
+</html>

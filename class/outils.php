@@ -1,6 +1,9 @@
 <?php
 
-//Fonction qui effectue une redirection vers l'url donnée
+/**
+ * Fonction qui effectue une redirection vers l'url donnée
+ * @param string $url
+ */
 function redirige($url)
 {
    die('<meta http-equiv="refresh" content="0;URL='.$url.'">');
@@ -38,5 +41,27 @@ function detection_mobile () {
 	}*/
 
 	return false;
+}
+
+/**
+ * Méthode permettant de renvoyé l'URL de la page courante
+ * @param boolean $isNomPage : permet de définir si on renvoie ou non le nom de la page dans l'URL
+ * @return string : L'URL
+ */
+function curPageURL($isNomPage) {
+	$pageURL = 'http';
+	if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+		$pageURL .= "s";
+	}
+	$pageURL .= "://";
+	if (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] != "80") {
+		$pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
+	} else {
+		$pageURL .= $_SERVER["SERVER_NAME"];
+	}
+	if($isNomPage) {
+		$pageURL .= $_SERVER["REQUEST_URI"];
+	}
+	return $pageURL;
 }
 ?>

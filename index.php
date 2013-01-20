@@ -33,10 +33,14 @@
 	</head>
 	<body>
     	<div id="wrapper">	
+    		<div id='DEBUG'></div>
             <div id="loading" class="loadingAjax" ><div class='zoneImage'><img src='./images/ajax-loader.gif' /></div></div>
             <?php 
             echo "<div id='param' class='loadingAjax' >";
             include($_SERVER["DOCUMENT_ROOT"]."/pages/parametres.php");
+            echo "</div>";
+            echo "<div id='signatureDiv' class='loadingAjax' >";
+            include($_SERVER["DOCUMENT_ROOT"]."/pages/signature.php");
             echo "</div>";
             
             //On récupère l'identifiant de l'utilisateur
@@ -130,7 +134,7 @@
             	}
                 echo "<span>GW2CL &copy; 2012 - Version ".$GLOBALS['VERSION']."</span>		
                     <br/>
-                    <span> Cr&eacute;&eacute; par Thorkh</span>
+                    <span> Cr&eacute;&eacute; par <b>Thorkh</b> avec l'aide de <b>Liath</b></span>
                 </div> <!-- div bottom -->";
             ?>
             </div> <!-- Div centre -->

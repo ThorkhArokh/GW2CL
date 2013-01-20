@@ -291,6 +291,32 @@ function getRecettePere($idUser, $armeSelect) {
 	closeConnectMySql($connection);
 }
 
+function getRecetteSansIngredient($idRecette, $idUser) {
+	$connection = connectMySql();
+
+	$reqSelectRecettes = "SELECT o.id as idObjet, o.nom as nomObjet, o.type as typeObjet, o.image as imageObjet, r.id as idRecette, a.quantite as quantiteRecette, r.quantiteNecessaire as quantiteNecessaire, a.avancee as avanceeRecette FROM objet o, recette r LEFT JOIN avanceeuser a ON a.idRecette = r.id and a.idUser = ".$idUser." where r.idObjet = o.id and r.id = ".$idRecette;
+	$resRecettes = mysql_query($reqSelectRecettes) or die("<div class='erreur'>[MySql] Erreur : ".htmlentities(mysql_error())."</div>");
+	
+	$nouvelleRecette = null;
+	while($row = mysql_fetch_array( $resRecettes )) {
+		$nouvelObjet = new Objet($row['idObjet'], $row['nomObjet'], $row['imageObjet'], $row['typeObjet']);
+		$listeIngredients = array();
+		$quantiteRecetteTmp = $row['quantiteRecette'];
+		$avanceeTmp = $row['avanceeRecette'];
+		if(empty($row['quantiteRecette'])) {
+			$quantiteRecetteTmp=0;
+		}
+		if(empty($row['avanceeRecette'])) {
+			$avanceeTmp = 0;
+		}
+		$nouvelleRecette = new Recette($row['idRecette'], $nouvelObjet, $listeIngredients, $row['quantiteNecessaire'], $quantiteRecetteTmp, $avanceeTmp);
+		break;
+	}
+	return $nouvelleRecette;
+
+	closeConnectMySql($connection);
+}
+
 function afficheRecettePere($idUser, $idRecettePere) {
 	$connection = connectMySql();
 	$nouvelleRecette = getRecette($idRecettePere, $idUser);

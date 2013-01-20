@@ -106,7 +106,7 @@ function selectArmePrincipale(cbx, idUser) {
 	xmlhttp.onreadystatechange=function()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-			
+			document.getElementById("DEBUG").innerHTML=xmlhttp.responseText;
 		} else if (xmlhttp.readyState < 4) {
 	    	
 	    }
@@ -121,12 +121,17 @@ function selectArmePrincipale(cbx, idUser) {
 	xmlhttp.send();
 }
 
-function afficheParam() {
-	document.getElementById("param").style.visibility='visible';
+function afficheDiv(div) {
+	document.getElementById(div).style.visibility='visible';
+}
+
+function masqueDiv(div) {
+	document.getElementById(div).style.visibility='hidden';
 }
 
 function masqueParam() {
-	document.getElementById("param").style.visibility='hidden';
+	masqueDiv("param");
 	document.getElementById('erreurs').innerHTML = "";
 	document.forms['modifierParamForm'].elements['zoneSaisieLoginParam'].className="";
 }
+

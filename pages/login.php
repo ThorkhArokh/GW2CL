@@ -16,8 +16,13 @@ if(isset($_SESSION['userLog'])) {
 		echo "</form>";
 		echo "</div>";
 	} else {
-		echo "<div class='bandeauProfil'>  ".$userConnect->login;
-		echo "<input title='Modifier nom utilisateur' type='button' onclick='afficheParam();' class='paramBtn' id='paramBtn' name='paramBtn' value=' ' >";
+		echo "<div class='bandeauProfil'>".$userConnect->login;
+		//On initialise l'objet pour la détection du support (mobile ou PC)
+		$detect = new Mobile_Detect();
+		if (!$detect->isMobile()) {
+			echo "<input title='G&eacute;n&eacute;rer signature' type='button' onclick='afficheDiv(\"signatureDiv\");' class='signatureBtn' id='signatureBtn' name='signatureBtn' value=' ' >";
+			echo "<input title='Param&eacute;tres' type='button' onclick='afficheDiv(\"param\");' class='paramBtn' id='paramBtn' name='paramBtn' value=' ' >";
+		}
 		echo "</div>";
 	}
 } 

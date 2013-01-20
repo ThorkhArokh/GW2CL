@@ -1,8 +1,11 @@
 <?php 
 include_once($_SERVER["DOCUMENT_ROOT"]."/class/User.php");
+include_once($_SERVER["DOCUMENT_ROOT"]."/class/Recette.php");
 ?>
 <div id='paramDiv' class='box'>
-<div class='titre'>Param&egrave;tres</div>
+<div class='titre'>Param&egrave;tres
+<input title='Fermer' type='button' onclick='masqueParam();' class='closeBtn' id='annulerParamBtn' name='annulerParamBtn' value=' ' >
+</div>
 <?php 
 	if(isset($_POST['saveParamBtn']) && isset($_POST['zoneSaisieLoginParam'])) {
 		if($_POST['zoneSaisieLoginParam'] != "") {
@@ -36,6 +39,7 @@ function valider()
 	
 	return resultat;
 }
+
 //]]>
 </script>
 <div id="erreurs"></div>
@@ -45,10 +49,9 @@ function valider()
 <span>Veuillez saisir le nom d'utilisateur que vous voulez voir appara&icirc;tre :</span>
 <input type='text' id='zoneSaisieLoginParam' name='zoneSaisieLoginParam'/>
 </p>
-</div class='infoBox'>
+</div>
 <p>
 <input type='submit' id='saveParamBtn' name='saveParamBtn' value='Enregistrer' />
-<input type='button' onclick='masqueParam();' id='annulerParamBtn' name='annulerParamBtn' value='Annuler' />
 </p>
 </form>
 </div>

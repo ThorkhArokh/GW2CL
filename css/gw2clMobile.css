@@ -38,6 +38,18 @@ a:hover
     opacity:0.9;
 }
 
+.bandeauProfil {
+	text-align: right;
+	font-weight: bold;
+	padding: 2px;
+	margin-left:0;
+	margin-right:0;
+	background-color : lightgray;
+	filter:alpha(opacity=900);
+    -moz-opacity: 0.9;
+    opacity:0.9;
+}
+
 .box {
 	padding:5px;
 	background-color : #353D3F;
@@ -77,6 +89,7 @@ a:hover
 
 #bottom {
 	text-align:center;
+	margin-top:15px;
 }
 
 #bottom span {
