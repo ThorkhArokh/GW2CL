@@ -45,7 +45,7 @@ if(isset($_SESSION['userLog'])) {
 		
 		echo "<br /><br />";
 		echo "BBCode pour ins&eacute;rer votre signature sur le forum:<br />";
-		echo "<input size=120 id='acopier' value='[img]".$urlImg."&fond=1[/img]'/>";
+		echo "<input id='acopier' value='[img]".$urlImg."&fond=1[/img]'/>";
 	} else { 
 		echo "<div class='erreur'>Veuillez choisir une arme principale pour pouvoir g&eacute;n&eacute;rer la signature.</div>";
 	}

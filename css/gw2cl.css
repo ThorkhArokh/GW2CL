@@ -390,6 +390,10 @@ input:focus {
 .imgBarreAvancee {
 }
 
+#acopier {
+	width:100%;
+}
+
 .meter-wrap{
     position: relative;
     border: 1px solid black;
