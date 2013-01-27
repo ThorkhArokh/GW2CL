@@ -9,6 +9,7 @@
 	$pierreRune = getObjetById(9);
 	$trefle = getObjetById(27);
 	$poussiereCristal = getObjetById(34);
+	$poussiereIncan = getObjetById(113);
 ?>
 
 <div class='infoBox'>
@@ -19,7 +20,7 @@
 	<ul>
 		<li><?php 
 			echo $fragmentObsidienne->afficheImage()." 10 ".htmlentities($fragmentObsidienne->nom)." (achat au temple de baltazard pour 2100
-			karma)";
+			karma par fragment)";
 		?></li>
 		<li><?php 
 			echo $pieceMystique->afficheImage()." 10 ".htmlentities($pieceMystique->nom);
@@ -40,7 +41,7 @@
 	<ul>
 		<li><?php 
 			echo $fragmentObsidienne->afficheImage()." 1 ".htmlentities($fragmentObsidienne->nom)." (achat au temple de baltazard pour 2100
-			karma)";
+			karma par fragment)";
 		?></li>
 		<li><?php 
 			echo $pieceMystique->afficheImage()." 1 ".htmlentities($pieceMystique->nom);
@@ -49,7 +50,7 @@
 			echo $bouleEcto->afficheImage()." 1 ".htmlentities($bouleEcto->nom);
 		?></li>
 		<li><?php 
-			echo $pierres->afficheImage()." 6 ".htmlentities($pierres->nom)." (10 contre un point de comp&eacute;tence au PNJ &agrave; c&ocirc;t&eacute; de la forge mystique)";
+			echo $pierres->afficheImage()." 6 ".htmlentities($pierres->nom)." (10 contre 1 point de comp&eacute;tence au PNJ &agrave; c&ocirc;t&eacute; de la forge mystique)";
 		?></li>
 	</ul>
 </div>
@@ -70,8 +71,27 @@
 			echo $poussiereCristal->afficheImage()." 5 ".htmlentities($poussiereCristal->nom)." (T6)";
 		?></li>
 		<li><?php 
-			echo $pierres->afficheImage()." 5 ".htmlentities($pierres->nom)." (10 contre un point de comp&eacute;tence au PNJ &agrave; c&ocirc;t&eacute; de la forge mystique)";
+			echo $pierres->afficheImage()." 5 ".htmlentities($pierres->nom)." (10 contre 1 point de comp&eacute;tence au PNJ &agrave; c&ocirc;t&eacute; de la forge mystique)";
 		?></li>
 		<li>1 objet de craft T6</li>
+	</ul>
+</div>
+<div class='infoBox'>
+	<p>
+		Pour obtenir des poussi&egrave;res de craft T6 &agrave; partir de poussi&egrave;res de craft T5 : 
+	</p>
+	<ul>
+		<li><?php
+			echo $poussiereIncan->afficheImage()." 250 ".htmlentities($poussiereIncan->nom)." (T5)";
+		?></li>
+		<li><?php 
+			echo $poussiereCristal->afficheImage()." 1 ".htmlentities($poussiereCristal->nom)." (T6)";
+		?></li>
+		<li><?php 
+			echo $pierres->afficheImage()." 5 ".htmlentities($pierres->nom)." (10 contre 1 point de comp&eacute;tence au PNJ &agrave; c&ocirc;t&eacute; de la forge mystique)";
+		?></li>
+		<li><?php
+			echo $cristaux->afficheImage()." 5 ".htmlentities($cristaux->nom)." (10 contre 3 points de comp&eacute;tence au PNJ &agrave; c&ocirc;t&eacute; de la forge mystique)";
+		?></li>
 	</ul>
 </div>

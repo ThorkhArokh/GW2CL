@@ -72,17 +72,17 @@
                 <form id="formSelectArme" method="post" action="index.php">
                 <?php 
                     if(isset($_SESSION['userLog'])) {
-                        $armeSelect = "-1";
+                        $armeSelect = $_SESSION['userLog']->armeChoisie;
                         $isChecked = false;
                         if (isset($_POST['selectRecette']) && isset($_POST['selectRecettePere'])) {
                         	$armeSelect = $_POST['selectRecettePere'];
-                        	if($armeSelect == $_SESSION['userLog']->armeChoisie) {
-                        		$isChecked=true;
-                        	}
                         } else {
                         	if(isset($_SESSION['recettePereSelect'])) {
                         		$armeSelect = $_SESSION['recettePereSelect'];
                         	}
+                        }
+                        if($armeSelect == $_SESSION['userLog']->armeChoisie) {
+                        	$isChecked=true;
                         }
                         //On affiche le select pour les objets pères
                         getRecettePere($_SESSION['userLog']->id, $armeSelect);
@@ -105,7 +105,7 @@
                 <div id="container">
                 <?php 
                 if(isset($_SESSION['userLog'])) {
-                	$recetteSelectionne = "";
+                	$recetteSelectionne = $_SESSION['userLog']->armeChoisie;
                     if (isset($_POST['selectRecette']) && isset($_POST['selectRecettePere'])) {
                         $_SESSION['recettePereSelect'] = $_POST['selectRecettePere'];
                         $recetteSelectionne = $_POST['selectRecettePere'];
@@ -114,7 +114,7 @@
                     		$recetteSelectionne = $_SESSION['recettePereSelect'];
                     	}	
                     }
-                    if($recetteSelectionne != "") {
+                    if($recetteSelectionne != -1) {
                         echo "<div class=\"titre\">Avanc&eacute;e Recette</div>";
                         echo "<div id='resultatAjax' >";
                         afficheRecettePere($_SESSION['userLog']->id, $recetteSelectionne);

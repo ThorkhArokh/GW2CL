@@ -3,6 +3,9 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/class/connexionMySql.php");
 include_once($_SERVER["DOCUMENT_ROOT"]."/class/Objet.php");
 include_once($_SERVER["DOCUMENT_ROOT"]."/class/Mobile_Detect.php");
 
+/*
+ * Classe permettant de gérer les recettes
+ */
 class Recette
 {
 	var $id;
@@ -12,6 +15,15 @@ class Recette
 	var $quantite;
 	var $avancee = 0;
 	
+	/**
+	 * Constructeur
+	 * @param unknown_type $idIn
+	 * @param unknown_type $objetACraftIn
+	 * @param unknown_type $ingredientsLstIn
+	 * @param unknown_type $quantiteNecessaireIn
+	 * @param unknown_type $quantiteIn
+	 * @param unknown_type $avanceeIn
+	 */
 	function Recette($idIn, $objetACraftIn, $ingredientsLstIn, $quantiteNecessaireIn, $quantiteIn, $avanceeIn) {
 		$this->id = $idIn;
 		$this->objetACraft = $objetACraftIn;
@@ -21,6 +33,10 @@ class Recette
 		$this->avancee = $avanceeIn;
 	}
 	
+	/**
+	 * Permet de sauvegarder l'avancée en base
+	 * @param unknown_type $idUser
+	 */
 	function enregistrer($idUser) {
 		$connection = connectMySql();
 		
@@ -32,6 +48,11 @@ class Recette
 		closeConnectMySql($connection);
 	}
 	
+	/**
+	 * Retourne le nombre d'ingrédients de la recette
+	 * @param unknown_type $nbrIngredientsIn
+	 * @return number
+	 */
 	function getNbrTotalIngredients($nbrIngredientsIn) {
 		$nbrIngredients = count($this->ingredientsLst)+$nbrIngredientsIn;
 		foreach($this->ingredientsLst as $ingredientTmp) {
@@ -40,11 +61,18 @@ class Recette
 		return $nbrIngredients;
 	}
 
+	/**
+	 * Retourne l'avancée de la recette
+	 */
 	function getAvancee() {
 		$avancee = ($this->quantite*100)/$this->quantiteNecessaire;
 		return $avancee;
 	}
 	
+	/**
+	 * Permet d'obtenir l'avancée globale de la recette en fonction de tous ses ingrédients
+	 * @return number
+	 */
 	function getAvanceeGlobale() {
 		$nombreTotalIngredient = $this->getNbrTotalIngredients(0);
 		
@@ -58,6 +86,11 @@ class Recette
 		return $res ;
 	}
 	
+	/**
+	 * Permet de connaître l'avancée des ingrédients de la recette
+	 * @param unknown_type $avanceeIngredientsIn
+	 * @return number
+	 */
 	function getAvanceeIngredients($avanceeIngredientsIn) {
 		$avanceeIngredients = $this->avancee + $avanceeIngredientsIn;
 		foreach($this->ingredientsLst as $ingredientTmp) {
@@ -66,6 +99,10 @@ class Recette
 		return $avanceeIngredients;
 	}
 	
+	/**
+	 * Permet de savoir si la recette est complète
+	 * @return boolean
+	 */
 	function isComplet() {
 		$avancee = $this->getAvancee();
 		$isComplet = false;
@@ -77,6 +114,11 @@ class Recette
 		return $isComplet;
 	}
 	
+	/**
+	 * Permet de définir l'avancée de la recette
+	 * @param unknown_type $nbr
+	 * @param unknown_type $idUser
+	 */
 	function setQuantite($nbr, $idUser) {
 		$this->quantite = $nbr;
 		$this->avancee = $this->getAvancee();
@@ -109,14 +151,27 @@ class Recette
 		}
 	}
 	
+	/**
+	 * Permet d'incrémenter l'avancée de la recette
+	 * @param unknown_type $idUser
+	 */
 	function addQuantite($idUser) {
 		$this->addQuantiteByNbr(1, $idUser);
 	}
 	
+	/**
+	 * Permet de décrémenter l'avancée de la recette
+	 * @param unknown_type $idUser
+	 */
 	function removeQuantite($idUser) {
 		$this->removeQuantiteByNbr(1, $idUser);
 	}
 	
+	/**
+	 * Permet de retirer une quantité donnée à l'avancée de la recette
+	 * @param unknown_type $nbr
+	 * @param unknown_type $idUser
+	 */
 	function removeQuantiteByNbr($nbr, $idUser) {
 		if($this->quantite>=$nbr){
 			$this->quantite = $this->quantite-$nbr;
@@ -145,6 +200,11 @@ class Recette
 		}
 	}
 	
+	/**
+	 * Permet d'ajouter une quantité donnée à l'avancée de la recette
+	 * @param unknown_type $nbr
+	 * @param unknown_type $idUser
+	 */
 	function addQuantiteByNbr($nbr, $idUser) {
 		$total = $this->quantite+$nbr;
 		if($total <= $this->quantiteNecessaire){
@@ -176,15 +236,21 @@ class Recette
 		}
 	}
 	
+	/**
+	 * Permet d'afficher une recette et tous ses ingrédients
+	 * @param unknown_type $paddingLeft
+	 * @param unknown_type $i
+	 * @param unknown_type $idUser
+	 * @param unknown_type $idRecettePere
+	 * @param unknown_type $isRecettePere
+	 * @param unknown_type $isPereComplet
+	 */
 	function afficheRecette($paddingLeft, $i, $idUser, $idRecettePere, $isRecettePere, $isPereComplet) {
 		$idRecettePereDiv = $idRecettePere."_".$this->id;
 		$nbrIngredient = count($this->ingredientsLst);
 		$style = "style=\"padding-left:".$paddingLeft."px;";
 		//On initialise l'objet pour la détection du support (mobile ou PC)
 		$detect = new Mobile_Detect();
-		if ($detect->isMobile()) {
-			$style = "";
-		}
 		
 		$afficheElement = "\"";
 		if($isPereComplet) {
@@ -221,9 +287,12 @@ class Recette
 		echo "</td>";
 		echo "<td>";
 		$this->objetACraft->afficheImage();
-		echo "</td><td><b>";
-		echo htmlentities($this->objetACraft->nom);
-		echo "</b></td>";
+		echo "</td>";
+		if (!$detect->isMobile()) {
+			echo "<td><b>";
+			echo htmlentities($this->objetACraft->nom);
+			echo "</b></td>";
+		}
 		echo "<td>";
 		echo "<div class='barreAvancee'>";
 		echo "<div class=\"meter-wrap\">";
@@ -243,21 +312,20 @@ class Recette
 		echo "</div>";
 		echo "</div>";
 		echo "</div>";
-		if(!$detect->isMobile()){
-			if($this->isComplet()){
-				echo "<img class='imgBarreAvancee' src='./images/finBarreOn.png'/>";
-			} else {
-				echo "<img class='imgBarreAvancee' src='./images/finBarreOff.png'/>";
-			}
+		if($this->isComplet()){
+			echo "<img class='imgBarreAvancee' src='./images/finBarreOn.png'/>";
+		} else {
+			echo "<img class='imgBarreAvancee' src='./images/finBarreOff.png'/>";
 		}
 		echo "</td>";
 		echo "<td>";
 		echo "<b>".$this->quantite."/".$this->quantiteNecessaire."</b>";
-		echo "</td><td>";
-		echo "(".round($avanceeTmp,1)."%)";
 		echo "</td>";
-		echo "<td>";
-		echo "</td>";
+		if (!$detect->isMobile()) {
+			echo "<td>";
+			echo "(".round($avanceeTmp,1)."%)";
+			echo "</td>";
+		}
 		echo "</tr>";
 		echo "</table>";
 		echo "</div>";
@@ -269,6 +337,11 @@ class Recette
 	}
 }
 
+/**
+ * Méthode permettant d'afficher la liste des recettes d'armes légendaires disponibles
+ * @param number $idUser
+ * @param string $armeSelect
+ */
 function getRecettePere($idUser, $armeSelect) {
 	$connection = connectMySql();
 
@@ -291,6 +364,12 @@ function getRecettePere($idUser, $armeSelect) {
 	closeConnectMySql($connection);
 }
 
+/**
+ * Méthode permettant d'obtenir un recette sans ses ingrédients
+ * @param number $idRecette
+ * @param number $idUser
+ * @return Ambigous <NULL, Recette>
+ */
 function getRecetteSansIngredient($idRecette, $idUser) {
 	$connection = connectMySql();
 
@@ -317,6 +396,11 @@ function getRecetteSansIngredient($idRecette, $idUser) {
 	closeConnectMySql($connection);
 }
 
+/**
+ * Permet d'afficher une recette d'arme légendaire
+ * @param number $idUser
+ * @param number $idRecettePere
+ */
 function afficheRecettePere($idUser, $idRecettePere) {
 	$connection = connectMySql();
 	$nouvelleRecette = getRecette($idRecettePere, $idUser);
@@ -327,6 +411,12 @@ function afficheRecettePere($idUser, $idRecettePere) {
 	
 }
 
+/**
+ * Permet de récupérer une recette
+ * @param number $idRecette
+ * @param number $idUser
+ * @return Ambigous <NULL, Recette>
+ */
 function getRecette($idRecette, $idUser) {
 	$reqSelectRecettes = "SELECT o.id as idObjet, o.nom as nomObjet, o.type as typeObjet, o.image as imageObjet, r.id as idRecette, a.quantite as quantiteRecette, r.quantiteNecessaire as quantiteNecessaire, a.avancee as avanceeRecette FROM objet o, recette r LEFT JOIN avanceeuser a ON a.idRecette = r.id and a.idUser = ".$idUser." where r.idObjet = o.id and r.id = ".$idRecette;
 	$resRecettes = mysql_query($reqSelectRecettes) or die("<div class='erreur'>[MySql] Erreur : ".htmlentities(mysql_error())."</div>");
@@ -348,7 +438,12 @@ function getRecette($idRecette, $idUser) {
 	}
 	return $nouvelleRecette;
 }
-	
+
+/**
+ * Permet de récupérer les ingrédients d'un recette
+ * @param number $idRecette
+ * @param number $idUser
+ */
 function getIngredients($idRecette, $idUser) {
 	$listeIngredients = array();
 	$reqSelectIngredients = "SELECT r.id as idRecette FROM recette r, objet o, ingredients i where r.idObjet = o.id and r.id = i.idRecette and i.idRecettePere = ".$idRecette;
