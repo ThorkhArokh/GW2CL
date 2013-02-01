@@ -5,6 +5,7 @@
 $GLOBALS['VERSION'] = "1.5";
 
 //Mode dev
-$GLOBALS['MODE_DEV'] = true;
+$local = ( (substr($NomServeur, 0, 7) == '192.168') || ($NomServeur == 'localhost') || (substr($NomServeur, 0, 3) == '127') );
+$GLOBALS['MODE_DEV'] = $local;
 
 ?>
