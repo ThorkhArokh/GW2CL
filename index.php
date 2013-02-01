@@ -8,11 +8,14 @@
 	include_once($_SERVER["DOCUMENT_ROOT"]."/class/outils.php");
 	include_once($_SERVER["DOCUMENT_ROOT"]."/class/Mobile_Detect.php");
 	
-	//On démarre la session
+	//On dï¿½marre la session
 	session_start();
 	
-	//On initialise l'objet pour la détection du support (mobile ou PC)
+	//On initialise l'objet pour la dï¿½tection du support (mobile ou PC)
 	$detect = new Mobile_Detect();
+	
+	//On rï¿½cupï¿½re l'identifiant de l'utilisateur
+        getSession();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -22,7 +25,7 @@
 		<title>Guild Wars 2 - Craft L&eacute;gendaire</title>
 		<link rel="icon" type="image/png" href="images/favIco.png" />
 		<?php 
-		//On sélectionne la feuille de style adéquat
+		//On sï¿½lectionne la feuille de style adï¿½quat
 		if ($detect->isMobile()) {
 			echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/gw2clMobile.css\" />";
 		} else {
@@ -43,8 +46,6 @@
             include($_SERVER["DOCUMENT_ROOT"]."/pages/signature.php");
             echo "</div>";
             
-            //On récupère l'identifiant de l'utilisateur
-            getSession();
             $classDivDroite = "divDroiteShow";
             $classDivCentre = "divCentreMin";
             if(isset($_SESSION['isAffiche']) && $_SESSION['isAffiche'] == "false") {
@@ -84,7 +85,7 @@
                         if($armeSelect == $_SESSION['userLog']->armeChoisie) {
                         	$isChecked=true;
                         }
-                        //On affiche le select pour les objets pères
+                        //On affiche le select pour les objets pï¿½res
                         getRecettePere($_SESSION['userLog']->id, $armeSelect);
                         
                         echo " <input type=\"submit\" class='submit' name=\"selectRecette\" value=\"Afficher avancement\" />";
